@@ -1526,7 +1526,7 @@ func GetCfToolEnv(ctx context.Context, token, dominio, tenant, coreApiVersion st
 		args, "ms"+devops, "/"+devops+"/KUBECFTOOLENV", token, dominio, coreApiVersion,
 	))
 	
-	envRes, _ := ApiCallGET(ctx, "true", args, "ms"+devops, "/"+devops+"/KUBECFTOOLENV", token, dominio, coreApiVersion)
+	envRes, _ := ApiCallGET(ctx, "true", args, "ms"+devops, "/"+devops+"/KUBECFTOOLENV", token, "admin.power2retail.com", coreApiVersion)
 
 	Logga(ctx, os.Getenv("JsonLog"), fmt.Sprintf("ApiCallGET response: %+v", envRes))
 
