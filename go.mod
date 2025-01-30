@@ -1,4 +1,4 @@
-module github.com/efm4retail/efm4retail
+module github.com/efm4retail-lab/efm4retail
 
 go 1.18
 
