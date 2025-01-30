@@ -14,4 +14,4 @@ git push origin --tags
 
 per caricare la lib sul progetto devops:
 
-go get github.com/efm4retail/efm4retail@v0.1.4
+go get github.com/efm4retail-lab/efm4retail@v0.1.8
