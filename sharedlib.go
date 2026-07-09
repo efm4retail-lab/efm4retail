@@ -1552,7 +1552,8 @@ func GitMergeApi(ctx context.Context, src, dst, repo, tipo string, bitbucketEnv 
 		clientTagDel.Debug = false
 		restyTagResponseDel, errDel := clientTagDel.R().
 			SetHeader("Content-Type", "application/json").
-			SetBasicAuth(bitbucketEnv.UserGit, bitbucketEnv.TokenGit).
+			//SetBasicAuth(bitbucketEnv.UserGit, bitbucketEnv.TokenGit).
+			SetAuthToken(bitbucketEnv.TokenGit).
 			Delete(bitbucketEnv.ApiHostGit + "/repositories/" + bitbucketEnv.ProjectGit + "/" + repo + "/refs/branches/" + tmpBranch)
 
 		if errDel != nil {
@@ -1572,7 +1573,8 @@ func GitMergeApi(ctx context.Context, src, dst, repo, tipo string, bitbucketEnv 
 		clientTag.Debug = false
 		restyTagResponse, err := clientTag.R().
 			SetHeader("Content-Type", "application/json").
-			SetBasicAuth(bitbucketEnv.UserGit, bitbucketEnv.TokenGit).
+			//SetBasicAuth(bitbucketEnv.UserGit, bitbucketEnv.TokenGit).
+			SetAuthToken(bitbucketEnv.TokenGit).
 			SetBody(body).
 			Post(bitbucketEnv.ApiHostGit + "/repositories/" + bitbucketEnv.ProjectGit + "/" + repo + "/refs/branches")
 
@@ -1617,7 +1619,8 @@ func GitMergeApi(ctx context.Context, src, dst, repo, tipo string, bitbucketEnv 
 	clientPullR.Debug = false
 	restyPullReqResponse, err := clientPullR.R().
 		SetHeader("Content-Type", "application/json").
-		SetBasicAuth(bitbucketEnv.UserGit, bitbucketEnv.TokenGit).
+		//SetBasicAuth(bitbucketEnv.UserGit, bitbucketEnv.TokenGit).
+		SetAuthToken(bitbucketEnv.TokenGit).
 		SetBody(body).
 		Post(bitbucketEnv.ApiHostGit + "/repositories/" + bitbucketEnv.ProjectGit + "/" + repo + "/pullrequests")
 
@@ -1659,7 +1662,8 @@ func GitMergeApi(ctx context.Context, src, dst, repo, tipo string, bitbucketEnv 
 			clientMerge := resty.New()
 			clientMerge.Debug = false
 			respMerge, errMerge := clientMerge.R().
-				SetBasicAuth(bitbucketEnv.UserGit, bitbucketEnv.TokenGit).
+				//SetBasicAuth(bitbucketEnv.UserGit, bitbucketEnv.TokenGit).
+				SetAuthToken(bitbucketEnv.TokenGit).
 				Post(bitbucketEnv.ApiHostGit + "/repositories/" + bitbucketEnv.ProjectGit + "/" + repo + "/pullrequests/" + strconv.Itoa(restyRes.ID) + "/merge")
 			// fmt.Println(string(respMerge.Body()), errMerge)
 
@@ -1681,7 +1685,8 @@ func GitMergeApi(ctx context.Context, src, dst, repo, tipo string, bitbucketEnv 
 				clientConflict.Debug = false
 				respConflict, errConflict := clientConflict.R().
 					EnableTrace().
-					SetBasicAuth(bitbucketEnv.UserGit, bitbucketEnv.TokenGit).
+					//SetBasicAuth(bitbucketEnv.UserGit, bitbucketEnv.TokenGit).
+					SetAuthToken(bitbucketEnv.TokenGit).
 					Get(restyRes.Links.Diff.Href)
 
 				if errConflict != nil {
