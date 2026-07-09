@@ -1196,14 +1196,16 @@ func CreateTag(ctx context.Context, buildArgs BuildArgs, tag, repo string) error
 	case "", "bitbucket":
 		respBranch, errBranch = clientBranch.R().
 			EnableTrace().
-			SetBasicAuth(buildArgs.UserGit, buildArgs.TokenGit).
+			//SetBasicAuth(buildArgs.UserGit, buildArgs.TokenGit).
+			SetAuthToken(buildArgs.TokenGit).
 			Get(buildArgs.ApiHostGit + "/repositories/" + buildArgs.ProjectGit + "/" + repo + "/refs/branches/" + buildArgs.SprintBranch)
 	case "gitub":
 		respBranch, errBranch = clientBranch.R().
 			EnableTrace().
 			SetHeader("Accept", "application/json").
 			SetHeader("Accept", "application/vnd.github+json").
-			SetBasicAuth(buildArgs.UserGit, buildArgs.TokenGit).
+			SetAuthToken(buildArgs.TokenGit).
+			//SetBasicAuth(buildArgs.UserGit, buildArgs.TokenGit).
 			Get(buildArgs.ApiHostGit + "/repos/" + buildArgs.UserGit + "/" + repo + "/git/refs/heads/" + buildArgs.SprintBranch)
 	}
 
