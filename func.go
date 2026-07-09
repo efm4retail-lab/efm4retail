@@ -1229,7 +1229,7 @@ func CreateTag(ctx context.Context, buildArgs BuildArgs, tag, repo string) error
 			restyResponse, errTag = client.R().
 				SetHeader("Content-Type", "application/json").
 				//SetBasicAuth(buildArgs.UserGit, buildArgs.TokenGit).
-				SetAuthToken(bitbucketEnv.TokenGit).
+				SetAuthToken(buildArgs.TokenGit).
 				SetBody(body).
 				Post(buildArgs.ApiHostGit + "/repositories/" + buildArgs.ProjectGit + "/" + repo + "/refs/tags")
 		case "github":
