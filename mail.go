@@ -133,11 +133,19 @@ func TelegramSendMessage(botToken, cftoolDevopsChatID, text string) error {
 
 	var erro error
 
+	// Crea il payload JSON
+	payload := map[string]interface{}{
+		"chat_id": cftoolDevopsChatID,
+		"text":    text,
+	}
+	
 	clientTelegram := resty.New()
 	clientTelegram.Debug = false
 	resTelegram, errTelegram := clientTelegram.R().
 		SetHeader("Content-Type", "application/json").
-		Post("https://api.telegram.org/bot" + botToken + "/sendMessage?chat_id=" + cftoolDevopsChatID + "&text=" + text)
+		SetBody(payload).
+		Post("https://api.telegram.org/bot" + botToken + "/sendMessage")
+		//Post("https://api.telegram.org/bot" + botToken + "/sendMessage?chat_id=" + cftoolDevopsChatID + "&text=" + text)
 
 	var telegramRes telegramResStruct
 	if errTelegram != nil {
