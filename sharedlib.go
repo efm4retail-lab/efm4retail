@@ -1398,7 +1398,8 @@ func CloudBuils(ctx context.Context, docker, verPad, dirRepo string, bArgs []str
 	var errBuild error
 	fmt.Println(dirRepo + "-" + docker + "-" + verPad)
 
-	nomeBucket := "q01io-325908_cloudbuild"
+	//nomeBucket := "q01io-325908_cloudbuild"
+	nomeBucket := cftoolenv.CoreGkeProject + "_cloudbuild"
 
 	tarFileName := docker + "_" + verPad + ".tar.gz"
 
@@ -1455,7 +1456,8 @@ func CloudBuils(ctx context.Context, docker, verPad, dirRepo string, bArgs []str
 	restyResB, errApiB := cliB.R().
 		SetAuthToken(gkeToken).
 		SetBody(cb).
-		Post("https://cloudbuild.googleapis.com/v1/projects/q01io-325908/locations/global/builds")
+		//Post("https://cloudbuild.googleapis.com/v1/projects/q01io-325908/locations/global/builds")
+		Post("https://cloudbuild.googleapis.com/v1/projects/" + cftoolenv.CoreGkeProject + "/locations/global/builds")
 	if errApiB != nil {
 
 	}
@@ -1478,7 +1480,8 @@ func GetBuildStatus(ID string, cftoolenv TenantEnv, token string) (BuildStatus, 
 	cli.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true})
 	restyRes, err := cli.R().
 		SetAuthToken(token).
-		Get("https://cloudbuild.googleapis.com/v1/projects/q01io-325908/builds/" + ID)
+		//Get("https://cloudbuild.googleapis.com/v1/projects/q01io-325908/builds/" + ID)
+		Get("https://cloudbuild.googleapis.com/v1/projects/" + cftoolenv.CoreGkeProject + "/builds/" + ID)
 	if err != nil {
 
 	}
